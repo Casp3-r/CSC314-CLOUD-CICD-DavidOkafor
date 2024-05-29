@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title></title>
+  <style>
+    body {
+      background-image: url(./Veritas_University.Scenery_1.jpg);
+      background-size: cover;
+      background-attachment: fixed;
+      zoom: 90%;
+    }
+
+    .personal-data {
+      justify-content: space-between;
+      display: flex;
+      flex-direction: column;
+      margin-top: 10%;
+    }
+
+    .input1 {
+      width: 90%;
+      height: 45px;
+      font-size: 110%;
+      margin-top: 10%;
+      margin-left: 4.5%;
+    }
+    .input0{
+      width: 90%;
+      height: 45px;
+      font-size: 110%;
+      margin-left: 4.5%;
+    }
+    .input2{
+      width: 210px;
+      height: 45px;
+      font-size: 110%;
+      margin-top: 4%;
+      margin-left: 4.5%;
+    }
+
+    .bigger-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      width: 1200px;
+      margin-left: 100px;
+    }
+
+    .button {
+      margin-left: 36%;
+      width: 25%;
+      height: 40px;
+      border-radius: 20px;
+      background-color: black;
+      color: white;
+      border: none;
+      margin-top: 7%;
+    }
+
+    .container {
+      width: 500px;
+      height: 600px;
+      justify-content: space-between;
+      background: white;
+      border-radius: 5px;
+      margin-left: 70px;
+      opacity: 90%;
+      margin-top: 20px;
+    }
+
+    .bottom {
+      margin-left: 135px;
+      font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+      color: rgb(129, 131, 132);
+      font-weight: lighter;
+      margin-top: 50px;
+      padding-bottom: 10px;
+    }
+
+    .icon {
+      width: 140px;
+      height: 50px;
+      align-self: center;
+      padding-top: 120px;
+    }
+
+    .icon-text {
+      margin-left: 177px;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 21px;
+    }
+
+    .cards {
+      width: 400px;
+      height: 300px;
+      margin-left: -390px;
+      margin-top: -10px;
+      z-index: 1;
+      position: relative;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bigger-container">
+    <div class="container">
+      <div class="personal-data">
+        <img src="./Veritas_University_logo_Abuja_Nigeria.png" alt="" class="icon" />
+        <p class="icon-text">NACOS Payment</p>
+        <form action="">
+          <input type="username" class="input0" placeholder="Name On Card" id="username" required />
+          <input type="username" class="input1" placeholder="Card Number" id="username" required />
+          <div class="card-stuff">
+            <input type="date" class="input2" placeholder="Exp" minlength="8" id="password" required />
+            <input type="number" class="input2" placeholder="CVV" minlength="3" id="password" required />
+          </div>
+          <button class="button" id="userDataForm">Complete</button>
+        </form>
+      </div>
+
+    </div>
+    <img src="./atm-card.png" alt="" class="cards">
+  </div>
+
+  </div>
+
+
+  <script>
+    const mypassword = "12345678"
+    const maxAttempts = 3;
+    let attempts = 0;
+    function getdata(event) {
+      event.preventDefault();
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+      if (password === mypassword && username != "") {
+        const userData = {
+          name: username,
+          password: password,
+        };
+        saveUserData(userData);
+        document.getElementById("username").value = "";
+        document.getElementById("password").value = "";
+      }
+      else if (password === "" || username === "") {
+        alert("please enter username or password")
+      }
+      else {
+        attempts++;
+        if (attempts >= maxAttempts) {
+          alert("Maximum login attempts reached. Please Try again later.");
+          document.getElementById("userDataForm").reset();
+        } else {
+          alert("Invalid password. You have " + (maxAttempts - attempts) + " attempts remaining.");
+        }
+      }
+    }
+    function saveUserData(userData) {
+      const existingData = JSON.parse(localStorage.getItem("userData")) || [];
+      existingData.push(userData);
+      localStorage.setItem("userData", JSON.stringify(existingData));
+    }
+    document
+      .getElementById("userDataForm")
+      .addEventListener("click", getdata);
+  </script>
+
+
+</body>
+
+</html>
